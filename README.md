@@ -1,21 +1,21 @@
-# SSDR
-## Implementation of Le and Deng's paper "Smooth Skinning Decomposition with Rigid Bones" in Maya
+# Pure Python SSDR
+## Implementation of Le and Deng's paper "Smooth Skinning Decomposition with Rigid Bones" in pure python
 
-This is a Python script which is meant to run within Maya. This means that only Python 2.7 is supported at this time.
+This is a Python script to run SSDR for learning this algorithm, which has been annotated every line in `Annotated_SSDR.py`.
 
-For help with installing numpy and scipy in Maya's python interpreter, I found this link very helpful:
-https://forums.autodesk.com/t5/maya-programming/guide-how-to-install-numpy-scipy-in-maya-windows-64-bit/td-p/5796722
+To reach the mesh data or pointcloud data, please refer to 4DGS or I would offer a Google Drive later.
 
 ## How to use
-To run the script out of the box, first you must have any number of deformations of the same mesh topology, for example different poses of a character.
+See the botton explain in each file
+you can use `pure_python_SSDR.py` to run your mesh sequence or pointcloud sequence. And visualize the result by using `pointcloud_viewer.py`.
 
-Then select all of the meshes (and only the meshes), with the "rest pose" selected last.
+I also provide a version to use this algorithm in [Deform-GS](https://github.com/ingra14m/Deformable-3D-Gaussians) in `Gaussian2SSDR.py`.
 
-Now run the script and it should calculate a weight map, bone transforms for each pose, and the translations of the bones at the rest position.
+Some results:
+- This result was generated from a version where bone re-initialization had not been implemented.
+    - ![result from d-nerf dataset](Assets/output.gif)
 
 ## Other info
-This is not an exact recreation of the algorithm in Le and Deng's paper.
+Most of the code is based on references from repository [SSDR](https://github.com/dalton-omens/SSDR) and repository [dem-bones](https://github.com/electronicarts/dem-bones).
 
-The "rest bones" is not a concept explicitly described in the paper but helps converge to a better solution. To get to a final mesh from the result bones, we first subtract off the rest bone translation for every bone and every vertex, then do the standard W^T * (R * p + T) tansformation to get to the final pose. This is demonstrated in the reconstruct function with the additional pose dimension.
-
-We also do not preform bone re-initialization.
+I am still developing bone re-initialization part.
